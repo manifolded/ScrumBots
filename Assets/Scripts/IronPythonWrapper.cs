@@ -15,8 +15,12 @@ public class IronPythonWrapper : MonoBehaviour {
 
 
 	public static void ScriptTest() {
+		// request debug mode
+		Dictionary<string, object> options = new Dictionary<string, object>();
+		options["Debug"] = true;
+
 		// create the engine
-		var engine = IronPython.Hosting.Python.CreateEngine();
+		var engine = IronPython.Hosting.Python.CreateEngine(options);
 
 		// and the scope (i.e. the Python namespace)
 		var scope = engine.CreateScope();
