@@ -20,7 +20,8 @@ public class IronPythonWrapper : MonoBehaviour {
 		options["Debug"] = true;
 
 		// create the engine
-		var engine = IronPython.Hosting.Python.CreateEngine(options);
+		// var engine = IronPython.Hosting.Python.CreateEngine(options); // this generates a whole different set of horrible errors
+		var engine = IronPython.Hosting.Python.CreateEngine();
 
 		// and the scope (i.e. the Python namespace)
 		var scope = engine.CreateScope();
@@ -28,7 +29,7 @@ public class IronPythonWrapper : MonoBehaviour {
 		// execute the Python script
 		engine.ExecuteFile("Assets/Scripts/robot.py");
 
-		// What's happening is that robot.py is generating errors when executed, but we never see them.
+		// What's happening is that robot.py is generating errors when executed, but we never see them?
 		// How do we trap errors from the Python scripts?
 
 		// grab the variable from the Python scope
