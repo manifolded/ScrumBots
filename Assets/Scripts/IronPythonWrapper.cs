@@ -27,7 +27,7 @@ public class IronPythonWrapper : MonoBehaviour {
 		var scope = engine.CreateScope();
 
 		// execute the Python script
-		engine.ExecuteFile("Assets/Scripts/robot.py");
+		engine.ExecuteFile("Assets/Scripts/robot.py", scope);
 
 		// What's happening is that robot.py is generating errors when executed, but we never see them?
 		// How do we trap errors from the Python scripts?
