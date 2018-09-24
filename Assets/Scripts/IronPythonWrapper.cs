@@ -21,13 +21,16 @@ public class IronPythonWrapper : MonoBehaviour {
 		// and the scope (i.e. the Python namespace)
 		var scope = engine.CreateScope();
 
-		// execute a string in the interpreter and grab the variable
-		string example = "output = 'hello world'";
+		// execute the Python script
+		engine.ExecuteFile("Assets/Scripts/robot.py");
 
-		engine.CreateScriptSourceFromString(example).Execute(scope);
-		string came_from_script = scope.GetVariable<string>("output");
+		// What's happening is that robot.py is generating errors when executed, but we never see them.
+		// How do we trap errors from the Python scripts?
+
+		// grab the variable from the Python scope
+		string commands = scope.GetVariable<string>("commands");
 
 		// Should be what we put into 'output' in the script.
-		Debug.Log(came_from_script);
+		Debug.Log(commands);
 	}
 }
