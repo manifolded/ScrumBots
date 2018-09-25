@@ -8,13 +8,7 @@ using System.Text;
 
 public class IronPythonWrapper : MonoBehaviour {
 
-	void Start() {
-	//	Debug.Log("before fishheads");
-		ScriptTest();
-	}
-
-
-	public static void ScriptTest() {
+	public void Start() {
 		// request debug mode
 		Dictionary<string, object> options = new Dictionary<string, object>();
 		options["Debug"] = true;
