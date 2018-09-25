@@ -8,7 +8,7 @@ To configure this project you will need to install IronPython (IP).  This has be
   
   2. Download and unpack IronPython from [here](http://ironpython.net/).
   
-  3. From the `IronPython.2.7.8/net45` directory copy `IronPython.*` and `Microsoft.*` into `Assets/Plugins/Resources`.  This can be most easily accomplished by drag-and-dropping the files to the Unity project window.  This will allow Unity to import them.
+  3. From the `IronPython.2.7.8/net45` directory copy `IronPython.*` and `Microsoft.*` into `Assets/Plugins/Resources`.  This can be most easily accomplished by drag-and-dropping the files to the Unity project window.  Unity will then import them.  The `.gitignore` file is set to ignore anything in this directory so you don't have to worry about this getting checked in to the repo.
   
   4. Also copy the `IronPython.2.7.8/Lib` directory to `Assets/Plugins/Resources`.  This contains the Python standard libraries which we will need.
 
