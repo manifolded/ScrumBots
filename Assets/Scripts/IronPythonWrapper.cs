@@ -5,16 +5,12 @@ using UnityEditor;
 using IronPython;
 using IronPython.Modules;
 using System.Text;
+using Newtonsoft.Json;
 
 public class IronPythonWrapper : MonoBehaviour {
 
 	public void Start() {
-		// request debug mode
-		Dictionary<string, object> options = new Dictionary<string, object>();
-		options["Debug"] = true;
-
 		// create the engine
-		// var engine = IronPython.Hosting.Python.CreateEngine(options); // this generates a whole different set of horrible errors
 		var engine = IronPython.Hosting.Python.CreateEngine();
 
 		// and the scope (i.e. the Python namespace)
@@ -23,13 +19,13 @@ public class IronPythonWrapper : MonoBehaviour {
 		// execute the Python script
 		engine.ExecuteFile("Assets/Scripts/robot.py", scope);
 
-		// What's happening is that robot.py is generating errors when executed, but we never see them?
-		// How do we trap errors from the Python scripts?
-
 		// grab the variable from the Python scope
-		string commands = scope.GetVariable<string>("commands");
+		dynamic commands = JsonConvert.DeserializeObject<Dictionary<string,float>>(scope.GetVariable<string>("commands"));
+		
+		float motorLeft = commands["motorLeft"];
+		float motorRight = commands["motorRight"];
 
-		// Should be what we put into 'output' in the script.
-		Debug.Log(commands);
+		Debug.Log(motorLeft);
+		Debug.Log(motorRight);
 	}
 }
