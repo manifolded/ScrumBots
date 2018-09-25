@@ -12,3 +12,5 @@ To configure this project you will need to install IronPython (IP).  This has be
   
   4. Also copy the `IronPython.2.7.8/Lib` directory to `Assets/Plugins/Resources`.  This contains the Python standard libraries which we will need.
 
+  5. You will also need `Json.NET`.  You can install a suitable version from the Unity Asset Store.  Search for "json.net", the first hit should be by Parentelement, LLC.  That's the one you want; go ahead and import it.  By default it will be placed in `Assets`.  You'll need to move it to `Assets/Plugins`.
+  
