@@ -6,32 +6,50 @@ using UnityEngine;
 public class AxleInfo {
     public WheelCollider leftWheel;
     public WheelCollider rightWheel;
-	public float leftMotor;
-	public float rightMotor;
+    public float speed;
+
+    [HideInInspector]
+    public float leftMotor;
+    [HideInInspector]
+    public float rightMotor;
 }
+
 public class RobotController : MonoBehaviour {
 	public List<AxleInfo> axleInfos;
 
-	public void ApplyLocalPositionToVisuals(WheelCollider collider) {
-		if(collider.transform.childCount == 0) {
-			return;
-		}
+    private float leftMotorTorque;
+    private float rightMotorTorque;
 
-		Transform visualWheel = collider.transform.GetChild(0);
 
-		Vector3 position;
-		Quaternion rotation;
-		collider.GetWorldPose(out position, out rotation);
+    public void ApplyLocalPositionToVisuals(WheelCollider collider)
+    {
+        if (collider.transform.childCount == 0)
+        {
+            return;
+        }
 
-		visualWheel.transform.position = position;
-		visualWheel.transform.rotation = rotation;
-	}
+        Transform visualWheel = collider.transform.GetChild(0);
 
-	void FixedUpdate() {
-		foreach(AxleInfo axleInfo in axleInfos) {
-			axleInfo.leftWheel.motorTorque = axleInfo.leftMotor;
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y, rotation.eulerAngles.z - 90);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
+    }
+
+    void FixedUpdate() {
+
+        foreach (AxleInfo axleInfo in axleInfos) {
+
+            leftMotorTorque = Input.GetAxis("LeftWheel") * axleInfo.speed;
+            rightMotorTorque = Input.GetAxis("RightWheel") * axleInfo.speed;
+
+            axleInfo.leftWheel.motorTorque = leftMotorTorque;
 			ApplyLocalPositionToVisuals(axleInfo.leftWheel);
-			axleInfo.rightWheel.motorTorque = axleInfo.rightMotor;
+			axleInfo.rightWheel.motorTorque = rightMotorTorque;
 			ApplyLocalPositionToVisuals(axleInfo.rightWheel);
 			
 		}
