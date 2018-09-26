@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Newtonsoft.Json;
 
 public class TrikeController : MonoBehaviour {
 
     public List<WheelCollider> wheelColliders;
     public List<float> torques;
     public float maxTorque;
+
+    public HumanControls controller;
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
@@ -30,12 +32,14 @@ public class TrikeController : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        float[] vals = {Input.GetAxis("LeftWheel")*maxTorque, Input.GetAxis("RightWheel")*maxTorque}; 
-        List<float> controls = new List<float>(vals);
+        string controlJson = controller.GetControlVals();
 
-        for(int i = 0; i<wheelColliders.Count; i++) {
-            wheelColliders[i].motorTorque = controls[i];
-            ApplyLocalPositionToVisuals(wheelColliders[i]);
-		}
+        Dictionary<string, float> controlsDict = 
+            JsonConvert.DeserializeObject<Dictionary<string, float>>(controlJson);
+
+        wheelColliders[0].motorTorque = controlsDict["leftTorque"];
+        ApplyLocalPositionToVisuals(wheelColliders[0]);
+        wheelColliders[1].motorTorque = controlsDict["rightTorque"];
+        ApplyLocalPositionToVisuals(wheelColliders[1]);
 	}
 }
