@@ -9,13 +9,11 @@ public class TrikeController : MonoBehaviour {
     public List<float> torques;
     public float maxTorque;
 
-    public HumanControls controller;
+    public IControls controller;
 
-    public void ApplyLocalPositionToVisuals(WheelCollider collider)
-    {
+    public void ApplyLocalPositionToVisuals(WheelCollider collider) {
         // This code makes the assumption that the visual wheel is a child of the wheel collider.
-        if (collider.transform.childCount == 0)
-        {
+        if (collider.transform.childCount == 0) {
             return;
         }
 
@@ -31,11 +29,16 @@ public class TrikeController : MonoBehaviour {
         visualWheel.transform.rotation = rotation;
     }
 
+    void Start() {
+        controller = new HumanControls();
+    }
+    
     void FixedUpdate() {
-        string controlJson = controller.GetControlVals();
+        string controlsJson = controller.GetControlVals();
+        // Debug.Log(controlsJson);
 
         Dictionary<string, float> controlsDict = 
-            JsonConvert.DeserializeObject<Dictionary<string, float>>(controlJson);
+            JsonConvert.DeserializeObject<Dictionary<string, float>>(controlsJson);
 
         wheelColliders[0].motorTorque = controlsDict["leftTorque"];
         ApplyLocalPositionToVisuals(wheelColliders[0]);

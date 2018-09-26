@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class HumanControls : MonoBehaviour {
+//public class HumanControls : MonoBehaviour, IControls {
+public class HumanControls : IControls {
 
 	public float maxTorque;
-	private string controls;
+	private string controlsJson;
 
 	public string GetControlVals() {
-		return controls;
+		update();
+		return controlsJson;
 	}
 
-	void FixedUpdate() {
+	void update() {
 		Dictionary<string,float> controlsDict = new Dictionary<string,float>();
 		controlsDict.Add("leftTorque", Input.GetAxis("LeftWheel")*maxTorque);
 		controlsDict.Add("rightTorque", Input.GetAxis("RightWheel")*maxTorque);
 
-		controls = JsonConvert.SerializeObject(controlsDict);
+		controlsJson = JsonConvert.SerializeObject(controlsDict);
+		Debug.Log(controlsJson);
 	}
 }
