@@ -9,7 +9,7 @@ public class TrikeController : MonoBehaviour {
     public List<float> torques;
     public float maxTorque;
 
-    public IControls controller;
+    private IControls controller;
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider) {
         // This code makes the assumption that the visual wheel is a child of the wheel collider.
@@ -30,8 +30,7 @@ public class TrikeController : MonoBehaviour {
     }
 
     void Start() {
-        controller = new HumanControls();
-        controller.setMaxTorque(maxTorque);
+        controller = new HumanControls(maxTorque);
     }
     
     void FixedUpdate() {

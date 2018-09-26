@@ -8,8 +8,8 @@ public class HumanControls : IControls {
 	private float maxTorque;
 	private string controlsJson;
 
-	public void setMaxTorque(float maxTorq) {
-		maxTorque = maxTorq;
+	public HumanControls(float _maxTorque) {
+		maxTorque = _maxTorque;
 	}
 
 	public string GetControlVals() {
