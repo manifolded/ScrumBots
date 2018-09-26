@@ -14,7 +14,7 @@ public class AxleInfo {
     public float rightMotor;
 }
 
-public class RobotController : MonoBehaviour {
+public class TrikeController : MonoBehaviour {
 	public List<AxleInfo> axleInfos;
 
     private float leftMotorTorque;
