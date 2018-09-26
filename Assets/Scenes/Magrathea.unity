@@ -141,12 +141,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055412bf03f71491d9113f76af8b4dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axleInfos:
-  - leftWheel: {fileID: 1360310631}
-    rightWheel: {fileID: 1013826551}
-    speed: 200
-    leftMotor: 0
-    rightMotor: 0
+  wheelColliders:
+  - {fileID: 1360310631}
+  - {fileID: 1013826551}
+  torques:
+  - 0
+  - 0
+  maxTorque: 100
 --- !u!54 &77025651
 Rigidbody:
   m_ObjectHideFlags: 0
