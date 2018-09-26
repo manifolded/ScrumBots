@@ -9,7 +9,10 @@ using Newtonsoft.Json;
 
 public class IronPythonWrapper : MonoBehaviour {
 
-	public void Start() {
+    public dynamic commands;
+
+    public void Start() {
+
 		// create the engine
 		var engine = IronPython.Hosting.Python.CreateEngine();
 
@@ -20,12 +23,7 @@ public class IronPythonWrapper : MonoBehaviour {
 		engine.ExecuteFile("Assets/Scripts/robot.py", scope);
 
 		// grab the variable from the Python scope
-		dynamic commands = JsonConvert.DeserializeObject<Dictionary<string,float>>(scope.GetVariable<string>("commands"));
-		
-		float motorLeft = commands["motorLeft"];
-		float motorRight = commands["motorRight"];
+		commands = JsonConvert.DeserializeObject<Dictionary<string,float>>(scope.GetVariable<string>("commands"));
 
-		Debug.Log(motorLeft);
-		Debug.Log(motorRight);
-	}
+    }
 }
