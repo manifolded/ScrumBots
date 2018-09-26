@@ -2,27 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class AxleInfo {
-    public WheelCollider leftWheel;
-    public WheelCollider rightWheel;
-    public float speed;
-
-    [HideInInspector]
-    public float leftMotor;
-    [HideInInspector]
-    public float rightMotor;
-}
 
 public class TrikeController : MonoBehaviour {
-	public List<AxleInfo> axleInfos;
 
-    private float leftMotorTorque;
-    private float rightMotorTorque;
-
+    public List<WheelCollider> wheelColliders;
+    public List<float> torques;
+    public float maxTorque;
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
+        // This code makes the assumption that the visual wheel is a child of the wheel collider.
         if (collider.transform.childCount == 0)
         {
             return;
@@ -41,17 +30,12 @@ public class TrikeController : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        float[] vals = {Input.GetAxis("LeftWheel")*maxTorque, Input.GetAxis("RightWheel")*maxTorque}; 
+        List<float> controls = new List<float>(vals);
 
-        foreach (AxleInfo axleInfo in axleInfos) {
-
-            leftMotorTorque = Input.GetAxis("LeftWheel") * axleInfo.speed;
-            rightMotorTorque = Input.GetAxis("RightWheel") * axleInfo.speed;
-
-            axleInfo.leftWheel.motorTorque = leftMotorTorque;
-			ApplyLocalPositionToVisuals(axleInfo.leftWheel);
-			axleInfo.rightWheel.motorTorque = rightMotorTorque;
-			ApplyLocalPositionToVisuals(axleInfo.rightWheel);
-			
+        for(int i = 0; i<wheelColliders.Count; i++) {
+            wheelColliders[i].motorTorque = controls[i];
+            ApplyLocalPositionToVisuals(wheelColliders[i]);
 		}
 	}
 }
