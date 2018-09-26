@@ -31,6 +31,7 @@ public class TrikeController : MonoBehaviour {
 
     void Start() {
         controller = new HumanControls();
+        controller.setMaxTorque(maxTorque);
     }
     
     void FixedUpdate() {

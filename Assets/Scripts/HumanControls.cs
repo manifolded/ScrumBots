@@ -5,8 +5,12 @@ using Newtonsoft.Json;
 
 public class HumanControls : IControls {
 
-	public float maxTorque;
+	private float maxTorque;
 	private string controlsJson;
+
+	public void setMaxTorque(float maxTorq) {
+		maxTorque = maxTorq;
+	}
 
 	public string GetControlVals() {
 		update();
@@ -19,6 +23,5 @@ public class HumanControls : IControls {
 		controlsDict.Add("rightTorque", Input.GetAxis("RightWheel")*maxTorque);
 
 		controlsJson = JsonConvert.SerializeObject(controlsDict);
-		Debug.Log(controlsJson);
 	}
 }
