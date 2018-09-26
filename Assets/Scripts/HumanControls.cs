@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
-//public class HumanControls : MonoBehaviour, IControls {
 public class HumanControls : IControls {
 
 	public float maxTorque;
