@@ -45,7 +45,7 @@ public class TrikeController : MonoBehaviour {
 
         // Debug.Log(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>());
         // returns "RightProxSensor(ProximitySensor)" which is perfect.
-        Debug.Log(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue());
+        float rightProx = transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue();
 
         string controlsJson = controller.GetControlVals();
         // Debug.Log(controlsJson);
