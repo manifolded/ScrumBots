@@ -2,9 +2,9 @@
 
 ## Required Installations
 
-To configure this project you will need to install IronPython (IP).  This has been tested with IP version 2.7.8 in Unity 2017.4.1f1.
+To configure this project you will need to install IronPython (IP).  This has been tested with IP version 2.7.8 in Unity 2018.2.10f1.
 
-  1. You will need to take advantage of Unity's "Experimental" scripting runtime version.  In Unity, go to `Edit`->`Project Settings`->`Player`.  This will open up the "PlayerSettings" in the Inspector Window.  Scroll down until you find `Other Settings`->`Configuration`->`Scripting Runtime Version`.  From the menu select `Experimental (.NET 4.6 Equivalent)`.  
+  1. With 2018.2.10f1 you no longer need to use the "Experimental" scripting runtime version.  It appears that the default is now `.NET 4.x Equivalent` which works well with IP.  If for some reason you find that you do need to change the setting you can do this by going to `Edit`->`Project Settings`->`Player`.  This will open up the "PlayerSettings" in the Inspector Window.  Scroll down until you find `Other Settings`->`Configuration`->`Scripting Runtime Version`.  From the menu select `.NET 4.x Equivalent`.  
 
   2. To install, first open the ScrumBots in Unity and create a directory `Assets/Plugins/Resources`.  This directory is where all the IP .dll and .xml files will go.
   
