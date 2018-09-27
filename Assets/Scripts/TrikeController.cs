@@ -30,7 +30,7 @@ public class TrikeController : MonoBehaviour {
     }
 
     void Start() {
-        controller = new HumanControls(maxTorque);
+        controller = new PythonControls(maxTorque, "Assets/Scripts/robot.py");
     }
     
     void FixedUpdate() {
