@@ -11,6 +11,8 @@ public class TrikeController : MonoBehaviour {
 
     private IControls controller;
 
+    // private Dictionary<string, ISensor> sensors;
+
     public void ApplyLocalPositionToVisuals(WheelCollider collider) {
         // This code makes the assumption that the visual wheel is a child of the wheel collider.
         if (collider.transform.childCount == 0) {
@@ -31,9 +33,20 @@ public class TrikeController : MonoBehaviour {
 
     void Start() {
         controller = new PythonControls(maxTorque, "Assets/Scripts/robot.py");
+        // sensors.Add("rightProx", transform.Find("robot_body"));
+        // Debug.Log(sensors["rightProx"] == null);
+        // Debug.Log("Messages aren't getting printed!");
     }
     
     void FixedUpdate() {
+        // foreach(KeyValuePair<string, ISensor> sensor in sensors) {
+        //     float value = sensor.Value.getSensorValue();
+        // }
+
+        // Debug.Log(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>());
+        // returns "RightProxSensor(ProximitySensor)" which is perfect.
+        Debug.Log(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue());
+
         string controlsJson = controller.GetControlVals();
         // Debug.Log(controlsJson);
 
