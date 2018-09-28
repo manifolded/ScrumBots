@@ -12,10 +12,12 @@ public class HumanControls : IControls {
 		maxTorque = _maxTorque;
 	}
 
-	public string GetControlVals() {
+	public string GetControlData() {
 		update();
 		return controlsJson;
 	}
+
+	public void PutSensorData(string _sensorDataJson) {}
 
 	void update() {
 		Dictionary<string,float> controlsDict = new Dictionary<string,float>();

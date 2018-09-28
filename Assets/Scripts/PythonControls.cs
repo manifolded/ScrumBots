@@ -19,7 +19,11 @@ public class PythonControls : IControls {
 		engine.ExecuteFile(_path, scope);
 	}
 
-	public string GetControlVals() {
+	public string GetControlData() {
 		return scope.GetVariable<string>("commands");
+	}
+
+	public void PutSensorData(string _sensorDataJson) {
+		scope.SetVariable("sensorDataJson", _sensorDataJson);
 	}
 }

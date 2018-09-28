@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IControls {
 
-	string GetControlVals();
+	string GetControlData();
+
+	void PutSensorData(string _sensorDataJson);
 }
