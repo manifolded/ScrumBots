@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -42,7 +42,7 @@ public class TrikeController : MonoBehaviour {
         float rightProxVal = sensors["rightProx"]();
         // Debug.Log(rightProxVal);
 
-        string controlsJson = controller.GetControlVals();
+        string controlsJson = controller.GetControlData();
         // Debug.Log(controlsJson);
 
         Dictionary<string, float> controlsDict = 
