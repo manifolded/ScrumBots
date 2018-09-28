@@ -37,6 +37,7 @@ public class TrikeController : MonoBehaviour {
         controller = new PythonControls(maxTorque, "Assets/Scripts/robot.py");
         sensors = new Dictionary<string, GetSensorValISensor>();
         sensors["rightProx"] = new GetSensorValISensor(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue);
+        sensors["leftProx"] = new GetSensorValISensor(transform.Find("robot_body").Find("LeftProxSensor").gameObject.GetComponent<ISensor>().getSensorValue);
         sensorData = new Dictionary<string, float>();
     }
     
@@ -45,8 +46,6 @@ public class TrikeController : MonoBehaviour {
         foreach(KeyValuePair<string, GetSensorValISensor> sensor in sensors) {
             sensorData[sensor.Key] = sensor.Value();
         }
-
-        // Debug.Log(sensorData["rightProx"]);
 
         // send sensor data
         string sensorDataJson = JsonConvert.SerializeObject(sensorData);
