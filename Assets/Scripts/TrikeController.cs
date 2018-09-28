@@ -11,8 +11,8 @@ public class TrikeController : MonoBehaviour {
 
     private IControls controller;
 
-    private delegate float DelegateISensor();
-    private Dictionary<string, DelegateISensor> sensors;
+    private delegate float GetSensorValISensor();
+    private Dictionary<string, GetSensorValISensor> sensors;
     private Dictionary<string, float> sensorData;
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider) {
@@ -35,14 +35,14 @@ public class TrikeController : MonoBehaviour {
 
     void Start() {
         controller = new PythonControls(maxTorque, "Assets/Scripts/robot.py");
-        sensors = new Dictionary<string, DelegateISensor>();
-        sensors["rightProx"] = new DelegateISensor(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue);
+        sensors = new Dictionary<string, GetSensorValISensor>();
+        sensors["rightProx"] = new GetSensorValISensor(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue);
         sensorData = new Dictionary<string, float>();
     }
     
     void FixedUpdate() {
         // get sensor data
-        foreach(KeyValuePair<string, DelegateISensor> sensor in sensors) {
+        foreach(KeyValuePair<string, GetSensorValISensor> sensor in sensors) {
             sensorData[sensor.Key] = sensor.Value();
         }
 
