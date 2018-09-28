@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -13,6 +13,7 @@ public class TrikeController : MonoBehaviour {
 
     private delegate float DelegateISensor();
     private Dictionary<string, DelegateISensor> sensors;
+    private Dictionary<string, float> sensorData;
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider) {
         // This code makes the assumption that the visual wheel is a child of the wheel collider.
@@ -36,12 +37,23 @@ public class TrikeController : MonoBehaviour {
         controller = new PythonControls(maxTorque, "Assets/Scripts/robot.py");
         sensors = new Dictionary<string, DelegateISensor>();
         sensors["rightProx"] = new DelegateISensor(transform.Find("robot_body").Find("RightProxSensor").gameObject.GetComponent<ISensor>().getSensorValue);
+        sensorData = new Dictionary<string, float>();
     }
     
     void FixedUpdate() {
-        float rightProxVal = sensors["rightProx"]();
-        // Debug.Log(rightProxVal);
+        // get sensor data
+        foreach(KeyValuePair<string, DelegateISensor> sensor in sensors) {
+            sensorData[sensor.Key] = sensor.Value();
+        }
 
+        // Debug.Log(sensorData["rightProx"]);
+
+        // send sensor data
+        string sensorDataJson = JsonConvert.SerializeObject(sensorData);
+        controller.PutSensorData(sensorDataJson);
+        Debug.Log(sensorDataJson);
+
+        // get control data and apply
         string controlsJson = controller.GetControlData();
         // Debug.Log(controlsJson);
 
