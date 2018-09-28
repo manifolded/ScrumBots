@@ -11,6 +11,7 @@ public class PythonControls : IControls {
 	private string commandsJson;
 	private dynamic engine;
 	private dynamic scope;
+	private dynamic pyMain;
 
 	public PythonControls(float _maxTorque, string _path) {
 		engine = Python.CreateEngine();
@@ -18,6 +19,11 @@ public class PythonControls : IControls {
 		scope.SetVariable("maxTorque", _maxTorque);
 		scope.SetVariable("sensorDataJson", "");
 		engine.ExecuteFile(_path, scope);
+		pyMain = scope.GetVariable("main");
+	}
+
+	public void ExecuteMain() {
+		pyMain();
 	}
 
 	public string GetControlData() {

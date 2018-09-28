@@ -12,8 +12,11 @@ public class HumanControls : IControls {
 		maxTorque = _maxTorque;
 	}
 
-	public string GetControlData() {
+	public void ExecuteMain() {
 		update();
+	}
+
+	public string GetControlData() {
 		return controlsJson;
 	}
 
