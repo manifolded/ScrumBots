@@ -16,7 +16,7 @@ public class PythonControls : IControls {
 		engine = Python.CreateEngine();
 		scope = engine.CreateScope();
 		scope.SetVariable("maxTorque", _maxTorque);
-		scope.AddVariable("sensorDataJson");
+		scope.SetVariable("sensorDataJson", "");
 		engine.ExecuteFile(_path, scope);
 	}
 
